@@ -1,4 +1,4 @@
-// POLSKIE KUUUUUUUUUUUUURWY
+// POLSKIE KUUUUUUUUUUUUURWY BEZ AUTORYZACJIIIIIIIIIIIIIIIIIIIIII
 import { platformNativeScriptDynamic } from "nativescript-angular/platform";
 
 import { AppModule } from "./app.module";
