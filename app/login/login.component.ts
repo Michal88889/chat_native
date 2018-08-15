@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: "Home",
+    selector: "Login",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    template: `
+    `
 })
-export class HomeComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.
