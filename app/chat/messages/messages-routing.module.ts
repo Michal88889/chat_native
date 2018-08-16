@@ -2,12 +2,14 @@ import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
+import { MessagesComponent } from "./messages.component";
+
 const routes: Routes = [
-    { path: "", redirectTo: "/chat", pathMatch: "full" }
+    { path: "messages", component: MessagesComponent },
 ];
 
 @NgModule({
-    imports: [NativeScriptRouterModule.forRoot(routes)],
+    imports: [NativeScriptRouterModule.forChild(routes)],
     exports: [NativeScriptRouterModule]
 })
-export class AppRoutingModule { }
+export class MessagesRoutingModule { }
