@@ -1,11 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: "Home",
+    selector: "chat-users",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    template: `
+    <GridLayout class="page">
+        <Label class="h3 p-15" text="Użytkownicy"></Label>
+    </GridLayout>
+    `
 })
-export class HomeComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
     constructor() {
         // Use the component constructor to inject providers.
