@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NavbarComponent } from './navbar/navbar.component';
+import { LoginService } from "~/shared";
 
 @Component({
     selector: "Chat",
@@ -13,11 +13,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class ChatComponent implements OnInit {
 
-    constructor() {
+    constructor(private loginSerivce: LoginService) {
         // Use the component constructor to inject providers.
     }
 
     ngOnInit(): void {
-        // Init your component properties here.
+        this.loginSerivce.test(); // test method
     }
 }
