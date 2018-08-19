@@ -7,7 +7,6 @@ import { UsersModule } from './users/users.module';
 
 import { ChatComponent } from "./chat.component";
 import { NavbarComponent } from './navbar/navbar.component';
-import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
     imports: [
