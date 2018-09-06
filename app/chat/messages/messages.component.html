@@ -1,0 +1,5 @@
+<ScrollView>
+    <stackLayout>
+        <single-message *ngFor="let result of apiResponse.result" [message]="result"></single-message>
+    </stackLayout>
+</ScrollView>
