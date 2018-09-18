@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { fromEventPattern } from "rxjs";
+import { Post } from "~/models";
 
 @Component({
     selector: "single-message",
@@ -10,7 +11,7 @@ import { fromEventPattern } from "rxjs";
 export class SingleMessageComponent implements OnInit {
 
     @Input()
-    message;
+    message: Post;
 
     constructor() {
         // Use the component constructor to inject providers.

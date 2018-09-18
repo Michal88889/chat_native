@@ -3,4 +3,5 @@ export class ApiResponse {
     message: string;
     error: any;
     result: any;
+    date_time: any;
 }

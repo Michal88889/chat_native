@@ -1,5 +1,10 @@
-<ScrollView>
-    <stackLayout>
-        <single-message *ngFor="let result of apiResponse.result" [message]="result"></single-message>
-    </stackLayout>
-</ScrollView>
+<stackLayout>
+    <ScrollView height="90%">
+            <stackLayout>
+                <single-message *ngFor="let msg of messages" [message]="msg"></single-message>
+            </stackLayout>
+        </ScrollView>
+        <stackLayout height="10%" orientation="horizontal">
+            <label text="Astaaaaaa chujuuuuuu"></label>
+        </stackLayout>
+</stackLayout>
