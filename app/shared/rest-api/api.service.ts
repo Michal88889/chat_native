@@ -27,7 +27,7 @@ export class ApiService {
         ).pipe(
             map(data => JSON.stringify(data)) //najpierw w locie konwertujemy wynik na JSON na wszelki wypadek
         ).subscribe(data => {
-            console.log(data); // testujemy, u mnie działa
+            //console.log(data); // testujemy, u mnie działa
         });
     }
 }

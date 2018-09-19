@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 
 import { ChatComponent } from "./chat.component";
 import { NavbarComponent } from './navbar/navbar.component';
+import { MessagesService } from "~/shared/rest-api/messages.service";
 
 @NgModule({
     imports: [
@@ -21,6 +22,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     ],
     schemas: [
         NO_ERRORS_SCHEMA
-    ]
+    ] 
 })
 export class ChatModule { }

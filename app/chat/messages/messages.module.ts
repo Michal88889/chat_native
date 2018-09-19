@@ -4,6 +4,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { MessagesComponent } from "./messages.component";
 import { MessagesRoutingModule } from './messages-routing.module';
+import { SingleMessageComponent } from "./single_message/single-message.component";
 
 @NgModule({
     imports: [
@@ -12,6 +13,7 @@ import { MessagesRoutingModule } from './messages-routing.module';
     ],
     declarations: [
         MessagesComponent,
+        SingleMessageComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "~/shared";
+import { MessagesService } from "~/shared/rest-api/messages.service";
 
 @Component({
     selector: "Chat",
@@ -9,7 +10,8 @@ import { LoginService } from "~/shared";
         <chat-navbar></chat-navbar>
         <router-outlet></router-outlet>
     </StackLayout>
-    `
+    `,
+    providers: [MessagesService]
 })
 export class ChatComponent implements OnInit {
 

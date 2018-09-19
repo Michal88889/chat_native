@@ -1,21 +1,22 @@
 import { Component, OnInit } from "@angular/core";
+import { fromEventPattern } from "rxjs";
+import { ApiResponse } from "~/models";
+import { MessagesService } from "~/shared/rest-api/messages.service";
+import { Post } from "../../models";
 
 @Component({
     selector: "chat-messages",
     moduleId: module.id,
-    template: `
-    <GridLayout class="page">
-        <Label class="h3 p-15" text="Wiadomości chat"></Label>
-    </GridLayout>
-    `
+    templateUrl: 'messages.component.html',
 })
 export class MessagesComponent implements OnInit {
+  
+    public messages: Array<Post> = [];
 
-    constructor() {
-        // Use the component constructor to inject providers.
+    constructor(public msgService: MessagesService) {
+        this.msgService.renderPosts().subscribe(posts => { this.messages = posts });
     }
 
-    ngOnInit(): void {
-        // Init your component properties here.
+    ngOnInit(){
     }
 }
