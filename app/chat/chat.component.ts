@@ -1,25 +1,59 @@
-import { Component, OnInit } from "@angular/core";
-import { LoginService } from "~/shared";
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { MessagesService } from "~/shared/rest-api/messages.service";
+import { RadSideDrawerComponent, SideDrawerType } from "nativescript-ui-sidedrawer/angular";
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { Page } from 'tns-core-modules/ui/page/page';
+import { isAndroid } from "tns-core-modules/platform";
 
 @Component({
     selector: "Chat",
     moduleId: module.id,
     template: `
-    <StackLayout>
-        <chat-navbar></chat-navbar>
-        <router-outlet></router-outlet>
-    </StackLayout>
+    <ActionBar title=""></ActionBar>
+    <gridLayout rows="50, *" columns="50, *">
+        <button *ngIf="isMenuBtnVisible" text="menu" width="50" height="50" row="0" col="0" (tap)="showMenu($event)"></button>
+        <RadSideDrawer row="0" col="0" rowSpan="2" colSpan="2" (drawerOpening)="onDrawerOpening($event)" (drawerClosing)="onDrawerClosing($event)">
+            <StackLayout tkDrawerContent class="sideStackLayout">
+                <chat-navbar tkDrawerContent></chat-navbar>
+            </StackLayout>
+            <StackLayout tkMainContent>
+                    <router-outlet></router-outlet>
+            </StackLayout>
+        </RadSideDrawer>
+    </gridLayout>
     `,
     providers: [MessagesService]
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
 
-    constructor(private loginSerivce: LoginService) {
-        // Use the component constructor to inject providers.
+    @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
+    private drawer: RadSideDrawer;
+    private isMenuBtnVisible: boolean = true;
+
+    constructor(private _changeDetectionRef: ChangeDetectorRef, private page: Page) {
+        if (isAndroid) {
+            this.page.actionBarHidden = true;
+        }
     }
 
-    ngOnInit(): void {
-        this.loginSerivce.test(); // test method
+    ngAfterViewInit() {
+        this.drawer = this.drawerComponent.sideDrawer;
+        this._changeDetectionRef.detectChanges();
     }
+
+    ngOnInit() {
+    }
+
+    onDrawerOpening(args?){
+        this.isMenuBtnVisible = false;
+    }
+
+    onDrawerClosing(args?){
+        this.isMenuBtnVisible = true;
+    }
+
+    showMenu(args?){
+        this.drawer.showDrawer();
+    }
+    
 }

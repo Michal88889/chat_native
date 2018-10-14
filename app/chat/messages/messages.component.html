@@ -1,10 +1,13 @@
-<stackLayout>
-    <ScrollView height="90%">
+<gridLayout rows="*, 50">
+    <ScrollView row="0">
             <stackLayout>
                 <single-message *ngFor="let msg of messages" [message]="msg"></single-message>
             </stackLayout>
-        </ScrollView>
-        <stackLayout height="10%" orientation="horizontal">
-            <label text="Astaaaaaa chujuuuuuu"></label>
-        </stackLayout>
-</stackLayout>
+    </ScrollView>
+    <gridLayout row ="1" columns="50, 50, *, 50">
+        <button col="0" text="photo" ></button>
+        <button col="1" text="img" ></button>
+        <textView col="2" hint="Write message..."></textView>
+        <button col="3" text="pause"></button>
+    </gridLayout>
+</gridLayout>

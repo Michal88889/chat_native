@@ -8,13 +8,15 @@ import { UsersModule } from './users/users.module';
 import { ChatComponent } from "./chat.component";
 import { NavbarComponent } from './navbar/navbar.component';
 import { MessagesService } from "~/shared/rest-api/messages.service";
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular/side-drawer-directives';
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
         ChatRoutingModule,
         MessagesModule,
-        UsersModule
+        UsersModule,
+        NativeScriptUISideDrawerModule
     ],
     declarations: [
         ChatComponent,
