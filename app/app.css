@@ -18,3 +18,26 @@ components that have the btn class name.
 .btn {
     font-size: 18;
 }
+
+button.iconBtn {
+    font-family: "icomoon";
+    color: #CCC;
+    background-color: #353535;
+    border-color: #353535;
+    font-size: 20;
+    height: 48;
+    width: 48;
+    margin: 2;
+    border-radius: 25;
+    border-width: 2;
+}
+button.iconBtn:active {
+    color: #FFF;
+    background-color: #505050;
+    border-radius: 25;
+    border-width: 2;
+    border-color: #505050;
+}
+button.menuBtn {
+    opacity: 0.8;
+}

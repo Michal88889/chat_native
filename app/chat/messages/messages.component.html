@@ -1,13 +1,15 @@
-<gridLayout rows="*, 50">
-    <ScrollView row="0">
+<gridLayout rows="*, 60">
+    <ScrollView #ScrollList row="0">
             <stackLayout>
-                <single-message *ngFor="let msg of messages" [message]="msg"></single-message>
+                <stackLayout *ngFor="let msg of messages; let isEven = even" [ngClass]="{'even': isEven}">
+                    <single-message [message]="msg"></single-message>
+                </stackLayout>
             </stackLayout>
     </ScrollView>
-    <gridLayout row ="1" columns="50, 50, *, 50">
-        <button col="0" text="photo" ></button>
-        <button col="1" text="img" ></button>
+    <gridLayout id="inputPanel" row ="1" columns="50, 50, *, 50">
+        <button col="0" text="&#xe90f;" class="iconBtn" (tap)="onCameraTap()"></button>
+        <button col="1" text="&#xe90d;" class="iconBtn" ></button>
         <textView col="2" hint="Write message..."></textView>
-        <button col="3" text="pause"></button>
+        <button col="3" text="&#xe96b;" class="iconBtn"></button>
     </gridLayout>
 </gridLayout>

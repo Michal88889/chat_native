@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
-import { MessagesService } from "~/shared/rest-api/messages.service";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-ui-sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { Page } from 'tns-core-modules/ui/page/page';
@@ -11,7 +10,7 @@ import { isAndroid } from "tns-core-modules/platform";
     template: `
     <ActionBar title=""></ActionBar>
     <gridLayout rows="50, *" columns="50, *">
-        <button *ngIf="isMenuBtnVisible" text="menu" width="50" height="50" row="0" col="0" (tap)="showMenu($event)"></button>
+        <button text="&#xe9bd;" class="iconBtn menuBtn" *ngIf="isMenuBtnVisible" row="0" col="0" (tap)="showMenu($event)"></button>
         <RadSideDrawer row="0" col="0" rowSpan="2" colSpan="2" (drawerOpening)="onDrawerOpening($event)" (drawerClosing)="onDrawerClosing($event)">
             <StackLayout tkDrawerContent class="sideStackLayout">
                 <chat-navbar tkDrawerContent></chat-navbar>
@@ -22,12 +21,12 @@ import { isAndroid } from "tns-core-modules/platform";
         </RadSideDrawer>
     </gridLayout>
     `,
-    providers: [MessagesService]
 })
 export class ChatComponent implements OnInit, AfterViewInit {
 
     @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
     private drawer: RadSideDrawer;
+    
     private isMenuBtnVisible: boolean = true;
 
     constructor(private _changeDetectionRef: ChangeDetectorRef, private page: Page) {

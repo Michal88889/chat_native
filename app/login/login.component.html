@@ -1,0 +1,6 @@
+<ActionBar title=""></ActionBar>
+<GridLayout class="page" rows="auto, auto, auto">
+    <TextField row="0" #loginTextField></TextField>
+    <TextField row="1" #passwordTextField secure="true"></TextField>
+    <button row="2" text="send" (tap)="tryLogin(loginTextField.text, passwordTextField.text)"></button>
+</GridLayout>

@@ -24,6 +24,7 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
     ],
     schemas: [
         NO_ERRORS_SCHEMA
-    ] 
+    ] ,
+    providers: [MessagesService]
 })
 export class ChatModule { }

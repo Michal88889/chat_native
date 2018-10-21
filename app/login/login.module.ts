@@ -3,17 +3,21 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
+import { LoginService } from '~/shared';
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        LoginRoutingModule
+        LoginRoutingModule,
     ],
     declarations: [
-        LoginComponent
+        LoginComponent,
     ],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    providers: [
+        LoginService
     ]
 })
-export class ChatModule { }
+export class LoginModule { }

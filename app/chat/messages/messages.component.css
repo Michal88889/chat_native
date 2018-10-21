@@ -1,0 +1,18 @@
+gridLayout{
+    background-color: #303030;
+}
+
+.even {
+    background-color: #404040;
+}
+
+#inputPanel{
+    padding: 5;
+}
+textView{
+    background-color: #404040;
+    color: #FFF;
+    border-width: 2;
+    border-radius: 25;
+    border-color: #404040;
+}

@@ -6,6 +6,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ChatModule } from './chat/chat.module';
 import { AppComponent } from "./app.component";
 import { AuthGuard, LoginService } from './shared';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
     providers: [
@@ -19,7 +20,8 @@ import { AuthGuard, LoginService } from './shared';
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptHttpClientModule,
-        ChatModule
+        ChatModule,
+        LoginModule
     ],
     declarations: [
         AppComponent

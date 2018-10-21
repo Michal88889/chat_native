@@ -3,7 +3,7 @@ import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 const routes: Routes = [
-    { path: "", redirectTo: "/chat", pathMatch: "full" }
+    { path: "", redirectTo: "/chat", pathMatch: "full" },
 ];
 
 @NgModule({
