@@ -9,7 +9,7 @@
     <gridLayout id="inputPanel" row ="1" columns="50, 50, *, 50">
         <button col="0" text="&#xe90f;" class="iconBtn" (tap)="onCameraTap()"></button>
         <button col="1" text="&#xe90d;" class="iconBtn" ></button>
-        <textView col="2" hint="Write message..."></textView>
-        <button col="3" text="&#xe96b;" class="iconBtn"></button>
+        <textView col="2" #MessageTF [text]="inputText" hint="Write message..."></textView>
+        <button col="3" text="&#xe96b;" class="iconBtn" (tap)="onSendTap(MessageTF.text)"></button>
     </gridLayout>
 </gridLayout>

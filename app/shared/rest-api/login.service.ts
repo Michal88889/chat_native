@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
-import { tap, map} from "rxjs/operators";
+import { tap, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { knownFolders, File, Folder, path } from "file-system";
 
@@ -13,39 +13,84 @@ import { Router } from '@angular/router';
 export class LoginService extends ApiService {
 
     private _userData: userData;
-    private fileHandler: File = knownFolders.documents().getFile("data");
+    private fileHandler: File = knownFolders.documents().getFile("data.txt");
 
     constructor(protected http: HttpClient, private _router: Router) {
         super(http);
     }
 
-    public async login(login: string, password: string){
+    /**
+     * @param login: String 
+     * @param password 
+     * @returns Observable<ApiResponse>
+     */
+    public login(login: string, password: string): Observable<ApiResponse> {
 
         let data: FormData = new FormData();
         data.append("username", login);
         data.append("password", password);
 
-        return await this.http.post<ApiResponse>(this.getUrl("post/login"), data, {headers: this.getHeaders()}).toPromise();
+        return this.http.post<ApiResponse>(this.getUrl("post/login"), data, { headers: this.getHeaders()});
     }
 
-    finalizeLogin(data: userData, isRemember: boolean){
+    /**
+     * @param data: userData
+     * @param isRemembered: boolean
+     */
+    finalizeLogin(data: userData, isRemembered: boolean) {
         this._userData = data;
-        if (isRemember)
-            this.rememberUser(data);
+        if (isRemembered)
+            this.fileHandler.writeTextSync(JSON.stringify(data), error => console.log(error));
         this._router.navigate(["/chat"]);
     }
 
-    private rememberUser(data: userData){
-    }
+    /**
+     * @return boolean
+     */
+    public logout(): boolean {
+        this._userData = null;
+        this.fileHandler.writeTextSync("");
 
-    public logout(){
-        this._userData = undefined;
-
-    }
-
-    public isLoggedIn(): boolean{
-        if (this._userData)
+        //Check if file has beed removed
+        if (this.fileHandler.readTextSync().length == 0) {
+            this._router.navigate(["/login"]);
             return true;
-        return true;
+        }
+        else
+            return false;
+
+    }
+
+    /**
+     * @returns userData
+     */
+    public getUserData(): userData {
+        if (this._userData)
+            return this._userData;
+        else {
+            if (File.exists(this.fileHandler.path)) {
+                let dataString = this.fileHandler.readTextSync(error => {
+                    console.log(error);
+                    return null;
+                });
+                if (dataString.length > 0) {
+                    this._userData = JSON.parse(dataString);
+                    return this._userData;
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+    }
+
+    /**
+     * @returns boolean
+     */
+    public isLoggedIn(): boolean {
+        if (this.getUserData())
+            return true;
+        return false;
     }
 }

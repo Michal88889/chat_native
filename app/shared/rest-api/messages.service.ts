@@ -5,7 +5,7 @@ import { Observable, interval, BehaviorSubject } from "rxjs";
 
 import { ApiResponse, Post } from '../../models';
 import { ApiService } from "./api.service";
-import { LoginService } from './login.service';
+import { userData } from '~/models/userData.model';
 
 @Injectable()
 export class MessagesService extends ApiService {
@@ -16,7 +16,7 @@ export class MessagesService extends ApiService {
     private intervalHandler: Observable<number>;
 
 
-    constructor(protected http: HttpClient, private login: LoginService) {
+    constructor(protected http: HttpClient) {
         super(http);    
         this.intervalHandler = interval(1000);
         this.intervalHandler.subscribe(() => {if (!this.isRqProcessing) this.updatePosts()}); 
@@ -78,7 +78,18 @@ export class MessagesService extends ApiService {
         return this.postsArray.asObservable();
     }
 
-    public sendPost(){
+    /**
+     * @param messageText: string
+     * @returns Observable<ApiResponse>
+     */
+    public sendPost(messageText: string, user: userData): Observable<ApiResponse>{
+    
+        console.log(user);
+        let rqBody: FormData = new FormData();
+
+        Object.keys(user).map(el => rqBody.append(el, user[el]));
+        rqBody.append("text", messageText);
+        return this.http.post<ApiResponse>(this.getUrl("post/addPost"), rqBody, {headers: new HttpHeaders(this.getHeaders())});
         
     }
 }

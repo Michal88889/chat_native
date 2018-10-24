@@ -11,7 +11,7 @@ import { LoginService } from '~/shared';
 export class LoginComponent implements OnInit {
 
     public errorMessage: string;
-    public isRemembered: boolean;
+    public isRemembered: boolean = true;
     constructor(private page: Page, private _loginService: LoginService) {
         if (isAndroid) {
             this.page.actionBarHidden = true;
@@ -23,12 +23,11 @@ export class LoginComponent implements OnInit {
     }
 
     tryLogin(login: string, password: string): void{
-        
-        this._loginService.login(login, password).then(resolve => {
-            if (resolve.status)
-                this._loginService.finalizeLogin(resolve.result, this.isRemembered)
+        this._loginService.login(login, password).subscribe(response => {
+            if(response.status)
+                this._loginService.finalizeLogin(response.result, this.isRemembered);
             else{
-                this.errorMessage = resolve.message;
+                console.log(response.message);
             }
         });
     }
