@@ -6,11 +6,13 @@ import { LoginService } from '~/shared';
     moduleId: module.id,
     template: `
         <StackLayout class="nav">
+            <label text="{{_loginService.getUserData().userName}}"></label>
             <Button text="Chat" 
                 [nsRouterLink]="['/chat/messages']"></Button>
             <Button text="Users"
                 [nsRouterLink]="['/chat/users']"></Button>
-            <Button text="Logout" (tap)="onLogoutTap()"></Button> 
+                <Button text="Settings" (tap)="onLogoutTap()"></Button> 
+            <Button text="Logout" (tap)="onLogoutTap()"></Button>
         </StackLayout>
     `
 })

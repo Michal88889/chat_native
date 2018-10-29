@@ -1,12 +1,15 @@
-<gridLayout rows="*, 60">
+<gridLayout rows="*,auto, 60">
     <ScrollView #ScrollList row="0">
             <stackLayout>
-                <stackLayout *ngFor="let msg of messages; let isEven = even" [ngClass]="{'even': isEven}">
+                <stackLayout *ngFor="let msg of messages; let isEven = even; let last = last" [ngClass]="{'even': isEven}" #MessagesListView>
                     <single-message [message]="msg"></single-message>
                 </stackLayout>
             </stackLayout>
     </ScrollView>
-    <gridLayout id="inputPanel" row ="1" columns="50, 50, *, 50">
+    <StackLayout row="1" *ngIf="sentMessages.length > 0">
+        <single-message *ngFor="let msg of sentMessages" [message]="msg"></single-message>
+    </StackLayout>
+    <gridLayout id="inputPanel" row ="2" columns="50, 50, *, 50">
         <button col="0" text="&#xe90f;" class="iconBtn" (tap)="onCameraTap()"></button>
         <button col="1" text="&#xe90d;" class="iconBtn" ></button>
         <textView col="2" #MessageTF [text]="inputText" hint="Write message..."></textView>

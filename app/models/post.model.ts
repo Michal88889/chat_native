@@ -1,5 +1,6 @@
-export interface Post{
+export class Post{
     dateTime?: any;
     userName?: string;
     text?: string;
+    id?: number;
 }

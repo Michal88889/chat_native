@@ -1,4 +1,4 @@
-export interface ApiConfig {
+export class ApiConfig {
     url: string;
     headers: any
   }

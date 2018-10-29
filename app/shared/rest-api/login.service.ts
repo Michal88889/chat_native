@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { tap, map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { knownFolders, File, Folder, path } from "file-system";
+import { knownFolders, File } from "file-system";
 
 import { ApiResponse } from '../../models';
 import { ApiService } from "./api.service";
