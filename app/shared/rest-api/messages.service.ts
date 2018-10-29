@@ -19,7 +19,7 @@ export class MessagesService extends ApiService {
     constructor(protected http: HttpClient) {
         super(http);    
         this.intervalHandler = interval(1000);
-        //this.intervalHandler.subscribe(() => {if (!this.isRqProcessing) this.updatePosts()}); 
+        this.intervalHandler.subscribe(() => {if (!this.isRqProcessing) this.updatePosts()}); 
     }
 
     private async updatePosts(){
