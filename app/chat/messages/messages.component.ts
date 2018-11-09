@@ -15,21 +15,25 @@ import { ImageSource } from 'tns-core-modules/image-source/image-source';
 
 })
 export class MessagesComponent implements OnInit {
-     
+    /**
+     * Asta 09.11.2018:
+     * 1. Konstruktory komponentów powinny zawierać tylko wstrzykiwane klasy i być puste
+     *    ngOnInit powinno zawierać operacje na start komponentu
+     * 2. Jak są krótkie funkcje i nie dajesz komentarzy to nie zostawiaj niepotrzebnie wolnych linijek kodu
+     */
     public messages: Array<Post> = [];
     public sentMessages: Array<Post> = [];
     public inputText: string;
 
-    constructor(public msgService: MessagesService, private imgService: ImgurService, private login: LoginService) {
+    constructor(public msgService: MessagesService, private imgService: ImgurService, private login: LoginService) { }
+
+    ngOnInit() {
         this.msgService.renderPosts().subscribe(posts => {
             this.messages = posts;
         });
     }
 
-    ngOnInit(){
-    }
-
-    onCameraTap(): void{
+    onCameraTap(): void {
         requestPermissions();
         takePicture().then(takenImage => {
             let img = new ImageSource().fromAsset(takenImage).then(source => {
@@ -40,15 +44,13 @@ export class MessagesComponent implements OnInit {
         });
     }
 
-    onSendTap(msgText: string){
+    onSendTap(msgText: string) {
 
     }
 
-    sendMessage(msgText: string){
-
+    sendMessage(msgText: string) {
         let user = this.login.getUserData();
-
         if (this.login.getUserData())
-            this.msgService.sendPost(msgText, this.login.getUserData()).subscribe(result => {});
+            this.msgService.sendPost(msgText, this.login.getUserData()).subscribe(result => { });
     }
 }

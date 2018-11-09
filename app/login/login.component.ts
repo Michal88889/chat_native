@@ -9,24 +9,29 @@ import { LoginService } from '~/shared';
     templateUrl: "login.component.html"
 })
 export class LoginComponent implements OnInit {
-
+    /**
+     * Asta 09.11.2018:
+     * 1. _loginSerivce => loginService (camelCase wszędzie, to wszędzie)
+     * 2. Konstruktory komponentów powinny zawierać tylko wstrzykiwane klasy i być puste
+     *    ngOnInit powinno zawierać operacje na start komponentu
+     * 3. tryLogin => login - tylko dlatego, że nazwa funkcji login jest używana absolutnie wszędzie
+     *    więc to "tryLogin" wygląda zwyczajnie nieprofesjonalnie
+     */
     public errorMessage: string;
     public isRemembered: boolean = true;
-    constructor(private page: Page, private _loginService: LoginService) {
+    constructor(private page: Page, private loginService: LoginService) { }
+
+    ngOnInit(): void {
         if (isAndroid) {
             this.page.actionBarHidden = true;
         }
     }
 
-    ngOnInit(): void {
-        // Init your component properties here.
-    }
-
-    tryLogin(login: string, password: string): void{
-        this._loginService.login(login, password).subscribe(response => {
-            if(response.status)
-                this._loginService.finalizeLogin(response.result, this.isRemembered);
-            else{
+    login(login: string, password: string): void {
+        this.loginService.login(login, password).subscribe(response => {
+            if (response.status)
+                this.loginService.finalizeLogin(response.result, this.isRemembered);
+            else {
                 console.log(response.message);
             }
         });

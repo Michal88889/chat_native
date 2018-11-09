@@ -1,4 +1,4 @@
-gridLayout{
+gridLayout {
     background-color: #303030;
 }
 
@@ -6,10 +6,11 @@ gridLayout{
     background-color: #404040;
 }
 
-#inputPanel{
+#inputPanel {
     padding: 5;
 }
-textView{
+
+textView {
     background-color: #404040;
     color: #FFF;
     border-width: 2;

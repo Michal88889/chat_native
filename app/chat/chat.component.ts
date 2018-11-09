@@ -23,36 +23,40 @@ import { isAndroid } from "tns-core-modules/platform";
     `,
 })
 export class ChatComponent implements OnInit, AfterViewInit {
-
+    /**
+     * Asta 09.11.2018:
+     * 1. _changeDetectionRef => changeDetectionRef (camelCase wszędzie, to wszędzie)
+     * 2. Konstruktory komponentów powinny zawierać tylko wstrzykiwane klasy i być puste
+     *    ngOnInit powinno zawierać operacje na start komponentu
+     */
     @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
     private drawer: RadSideDrawer;
-    
+
     private isMenuBtnVisible: boolean = true;
 
-    constructor(private _changeDetectionRef: ChangeDetectorRef, private page: Page) {
+    constructor(private changeDetectionRef: ChangeDetectorRef, private page: Page) { }
+
+    ngAfterViewInit() {
+        this.drawer = this.drawerComponent.sideDrawer;
+        this.changeDetectionRef.detectChanges();
+    }
+
+    ngOnInit() {
         if (isAndroid) {
             this.page.actionBarHidden = true;
         }
     }
 
-    ngAfterViewInit() {
-        this.drawer = this.drawerComponent.sideDrawer;
-        this._changeDetectionRef.detectChanges();
-    }
-
-    ngOnInit() {
-    }
-
-    onDrawerOpening(args?){
+    onDrawerOpening(args?) {
         this.isMenuBtnVisible = false;
     }
 
-    onDrawerClosing(args?){
+    onDrawerClosing(args?) {
         this.isMenuBtnVisible = true;
     }
 
-    showMenu(args?){
+    showMenu(args?) {
         this.drawer.showDrawer();
     }
-    
+
 }

@@ -6,7 +6,7 @@ import { LoginService } from '~/shared';
     moduleId: module.id,
     template: `
         <StackLayout class="nav">
-            <label text="{{_loginService.getUserData().userName}}"></label>
+            <label text="{{loginService.getUserData().userName}}"></label>
             <Button text="Chat" 
                 [nsRouterLink]="['/chat/messages']"></Button>
             <Button text="Users"
@@ -18,7 +18,7 @@ import { LoginService } from '~/shared';
 })
 export class NavbarComponent implements OnInit {
 
-    constructor(private _loginService: LoginService) {
+    constructor(private loginService: LoginService) {
         // Use the component constructor to inject providers.
     }
 
@@ -27,6 +27,6 @@ export class NavbarComponent implements OnInit {
     }
 
     onLogoutTap(): void{
-        this._loginService.logout();
+        this.loginService.logout();
     }
 }

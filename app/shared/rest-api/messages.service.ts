@@ -9,7 +9,11 @@ import { userData } from '~/models/userData.model';
 
 @Injectable()
 export class MessagesService extends ApiService {
-
+    /**
+     * Asta 09.11.2018:
+     * 1. Kolejność parametrów/funkcji w klasie powinien być taki: public, protected, private
+     * 2. updatePosts -> małe zmiany i podpowiedzi
+     */
     private postsArray: BehaviorSubject<Array<Post>> = new BehaviorSubject<Array<Post>>([]);
     private lastUpdateTime: number = 0;
     private isRqProcessing: boolean = false;
@@ -17,37 +21,60 @@ export class MessagesService extends ApiService {
 
 
     constructor(protected http: HttpClient) {
-        super(http);    
+        super(http);
         this.intervalHandler = interval(1000);
-        this.intervalHandler.subscribe(() => {if (!this.isRqProcessing) this.updatePosts()}); 
+        this.intervalHandler.subscribe(() => { if (!this.isRqProcessing) this.updatePosts() });
     }
 
-    private async updatePosts(){
-        this.isRqProcessing = true;
+    /**
+    * @returns Observable<Array<Post>>
+    **/
+    public renderPosts(): Observable<Array<Post>> {
+        return this.postsArray.asObservable();
+    }
 
+    /**
+     * @param messageText: string
+     * @returns Observable<ApiResponse>
+     */
+    public sendPost(messageText: string, user: userData): Observable<ApiResponse> {
+        console.log(user);
+        let rqBody: FormData = new FormData();
+
+        Object.keys(user).map(el => rqBody.append(el, user[el]));
+        rqBody.append("text", messageText);
+        return this.http.post<ApiResponse>(this.getUrl("post/addPost"), rqBody, { headers: new HttpHeaders(this.getHeaders()) });
+    }
+
+    private async updatePosts() {
+        this.isRqProcessing = true;
         const currentUpdateTime = await this.getUpdateTime().toPromise();
-        
+        /**
+        * Asta 09.11.2018
+        * To według mnie jest niepotrzebne:
         let postsLength = this.postsArray.value.length;
         let myParams: HttpParams;
         if (postsLength > 0)
             myParams = new HttpParams().set('timestamp', this.lastUpdateTime.toString());
-
+        */
         let postsResponse: ApiResponse;
-        if (this.lastUpdateTime !== currentUpdateTime.result){               
-
-            await this.getPosts(myParams).toPromise().then(resolve =>{postsResponse = resolve}).catch(error =>
+        if (this.lastUpdateTime !== currentUpdateTime.result) {
+            let myParams = new HttpParams().set('timestamp', this.lastUpdateTime.toString());
+            await this.getPosts(myParams).toPromise().then(resolve => { postsResponse = resolve }).catch(error =>
                 console.log(error)
             );
 
-            if (postsResponse.result.length == 0){
+            if (postsResponse.result.length == 0) {
                 //TODO usuwanie wiadomosci
-            }
-            else{
+                /** Asta 09.11.2018
+                 *  Tutaj wywołaj nową funkcję do usuwania, żeby ta nie było zbyt długa
+                 *  generalnie funkcje w idealnym świecie powinny mieć do 30 linjek kodu
+                 */
+            } else {
                 this.postsArray.next(this.postsArray.getValue().concat(postsResponse.result));
-            }         
+            }
             this.lastUpdateTime = currentUpdateTime.result;
         }
-
         this.isRqProcessing = false;
     }
 
@@ -55,9 +82,9 @@ export class MessagesService extends ApiService {
     /**
      * @returns Observable<ApiResponse>
      **/
-    private getUpdateTime(): Observable<ApiResponse>{
-        return this.http.get<ApiResponse>(this.getUrl("get/lastUpdate"), 
-            {headers: new HttpHeaders(this.getHeaders())});
+    private getUpdateTime(): Observable<ApiResponse> {
+        return this.http.get<ApiResponse>(this.getUrl("get/lastUpdate"),
+            { headers: new HttpHeaders(this.getHeaders()) });
     }
 
 
@@ -66,30 +93,10 @@ export class MessagesService extends ApiService {
      * @returns Observable<ApiResponse>
      **/
     private getPosts(params?: HttpParams): Observable<ApiResponse> {
-        return this.http.get<ApiResponse>(this.getUrl("get/lastPosts"), 
-            {headers: new HttpHeaders(this.getHeaders()),
-            params: params});
-    }
-  
-    /**
-    * @returns Observable<Array<Post>>
-    **/
-    public renderPosts(): Observable<Array<Post>>{
-        return this.postsArray.asObservable();
-    }
-
-    /**
-     * @param messageText: string
-     * @returns Observable<ApiResponse>
-     */
-    public sendPost(messageText: string, user: userData): Observable<ApiResponse>{
-    
-        console.log(user);
-        let rqBody: FormData = new FormData();
-
-        Object.keys(user).map(el => rqBody.append(el, user[el]));
-        rqBody.append("text", messageText);
-        return this.http.post<ApiResponse>(this.getUrl("post/addPost"), rqBody, {headers: new HttpHeaders(this.getHeaders())});
-        
+        return this.http.get<ApiResponse>(this.getUrl("get/lastPosts"),
+            {
+                headers: new HttpHeaders(this.getHeaders()),
+                params: params
+            });
     }
 }

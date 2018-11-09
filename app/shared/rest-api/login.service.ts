@@ -11,11 +11,20 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginService extends ApiService {
-
-    private _userData: userData;
+    /**
+     * Asta 09.11.2018:
+     * 1. _router => router, _userData => userData (camelCase wszędzie, to wszędzie)
+     * 2. Jak są krótkie funkcje i nie dajesz komentarzy to nie zostawiaj niepotrzebnie wolnych linijek kodu
+     * 3. Zapisywanie niezaszyfrowanych danych użytkownika w pliku to zły pomysł, najlepiej użyć specjalnych funkcji do tego stworzonych:|
+     *    https://docs.nativescript.org/ns-framework-modules/application-settings
+     *    + jak używasz rzeczy typu "sciezka do pliku.txt" albo nazwe zmiennej przechowywanej w jakimś value-key storage
+     *    to scieżkę/nazwę wrzucaj do configa i pobieraj z configa, tego typu rzeczy powinny siedzieć w jednym miejscu
+     *    
+     */
+    private userData: userData;
     private fileHandler: File = knownFolders.documents().getFile("data.txt");
 
-    constructor(protected http: HttpClient, private _router: Router) {
+    constructor(protected http: HttpClient, private router: Router) {
         super(http);
     }
 
@@ -25,12 +34,11 @@ export class LoginService extends ApiService {
      * @returns Observable<ApiResponse>
      */
     public login(login: string, password: string): Observable<ApiResponse> {
-
         let data: FormData = new FormData();
         data.append("username", login);
         data.append("password", password);
 
-        return this.http.post<ApiResponse>(this.getUrl("post/login"), data, { headers: this.getHeaders()});
+        return this.http.post<ApiResponse>(this.getUrl("post/login"), data, { headers: this.getHeaders() });
     }
 
     /**
@@ -38,22 +46,22 @@ export class LoginService extends ApiService {
      * @param isRemembered: boolean
      */
     finalizeLogin(data: userData, isRemembered: boolean) {
-        this._userData = data;
+        this.userData = data;
         if (isRemembered)
             this.fileHandler.writeTextSync(JSON.stringify(data), error => console.log(error));
-        this._router.navigate(["/chat"]);
+        this.router.navigate(["/chat"]);
     }
 
     /**
      * @return boolean
      */
     public logout(): boolean {
-        this._userData = null;
+        this.userData = null;
         this.fileHandler.writeTextSync("");
 
         //Check if file has beed removed
         if (this.fileHandler.readTextSync().length == 0) {
-            this._router.navigate(["/login"]);
+            this.router.navigate(["/login"]);
             return true;
         }
         else
@@ -65,8 +73,8 @@ export class LoginService extends ApiService {
      * @returns userData
      */
     public getUserData(): userData {
-        if (this._userData)
-            return this._userData;
+        if (this.userData)
+            return this.userData;
         else {
             if (File.exists(this.fileHandler.path)) {
                 let dataString = this.fileHandler.readTextSync(error => {
@@ -74,8 +82,8 @@ export class LoginService extends ApiService {
                     return null;
                 });
                 if (dataString.length > 0) {
-                    this._userData = JSON.parse(dataString);
-                    return this._userData;
+                    this.userData = JSON.parse(dataString);
+                    return this.userData;
                 }
                 else
                     return null;

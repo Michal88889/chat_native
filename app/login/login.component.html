@@ -2,5 +2,5 @@
 <GridLayout class="page" rows="auto, auto, auto">
     <TextField row="0" #loginTF></TextField>
     <TextField row="1" #passwordTF secure="true"></TextField>
-    <button row="2" text="send" (tap)="tryLogin(loginTF.text, passwordTF.text)"></button>
+    <button row="2" text="send" (tap)="login(loginTF.text, passwordTF.text)"></button>
 </GridLayout>
