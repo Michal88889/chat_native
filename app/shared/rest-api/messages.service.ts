@@ -64,7 +64,7 @@ export class MessagesService extends ApiService {
                 console.log(error)
             );
 
-            if (postsResponse.result.length == 0) {
+            if (this.lastUpdateTime && postsResponse.result.length == 0) {
                 //TODO usuwanie wiadomosci
                 /** Asta 09.11.2018
                  *  Tutaj wywołaj nową funkcję do usuwania, żeby ta nie było zbyt długa
