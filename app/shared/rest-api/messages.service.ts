@@ -9,11 +9,7 @@ import { userData } from '~/models/userData.model';
 
 @Injectable()
 export class MessagesService extends ApiService {
-    /**
-     * Asta 09.11.2018:
-     * 1. Kolejność parametrów/funkcji w klasie powinien być taki: public, protected, private
-     * 2. updatePosts -> małe zmiany i podpowiedzi
-     */
+
     private postsArray: BehaviorSubject<Array<Post>> = new BehaviorSubject<Array<Post>>([]);
     private lastUpdateTime: number = 0;
     private isRqProcessing: boolean = false;
@@ -49,14 +45,7 @@ export class MessagesService extends ApiService {
     private async updatePosts() {
         this.isRqProcessing = true;
         const currentUpdateTime = await this.getUpdateTime().toPromise();
-        /**
-        * Asta 09.11.2018
-        * To według mnie jest niepotrzebne:
-        let postsLength = this.postsArray.value.length;
-        let myParams: HttpParams;
-        if (postsLength > 0)
-            myParams = new HttpParams().set('timestamp', this.lastUpdateTime.toString());
-        */
+ 
         let postsResponse: ApiResponse;
         if (this.lastUpdateTime !== currentUpdateTime.result) {
             let myParams = new HttpParams().set('timestamp', this.lastUpdateTime.toString());

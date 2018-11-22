@@ -11,16 +11,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginService extends ApiService {
-    /**
-     * Asta 09.11.2018:
-     * 1. _router => router, _userData => userData (camelCase wszędzie, to wszędzie)
-     * 2. Jak są krótkie funkcje i nie dajesz komentarzy to nie zostawiaj niepotrzebnie wolnych linijek kodu
-     * 3. Zapisywanie niezaszyfrowanych danych użytkownika w pliku to zły pomysł, najlepiej użyć specjalnych funkcji do tego stworzonych:|
-     *    https://docs.nativescript.org/ns-framework-modules/application-settings
-     *    + jak używasz rzeczy typu "sciezka do pliku.txt" albo nazwe zmiennej przechowywanej w jakimś value-key storage
-     *    to scieżkę/nazwę wrzucaj do configa i pobieraj z configa, tego typu rzeczy powinny siedzieć w jednym miejscu
-     *    
-     */
+    
     private userData: userData;
     private fileHandler: File = knownFolders.documents().getFile("data.txt");
 
@@ -38,7 +29,7 @@ export class LoginService extends ApiService {
         data.append("username", login);
         data.append("password", password);
 
-        return this.http.post<ApiResponse>(this.getUrl("post/login"), data, { headers: this.getHeaders() });
+        return this.http.post<ApiResponse>(this.getUrl("post/login"), data, { headers: new HttpHeaders(this.getHeaders())});
     }
 
     /**

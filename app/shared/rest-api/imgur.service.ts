@@ -7,11 +7,6 @@ import { ImageSource } from 'tns-core-modules/image-source/image-source';
 
 @Injectable()
 export class ImgurService {
-    /**
-     * Asta 09.11.2018:
-     * 1. Stałe stringi wrzucane na sztywno typu URL do api, czy nawet jakieś dane w stylu "png"
-     *    powinny lecieć do configa żeby być w jednym miejscu
-     */
     private config = {
         baseUrl: "https://api.imgur.com/3/",
         headers: {

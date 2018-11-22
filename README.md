@@ -1,43 +1,29 @@
-# NativeScript with Angular Blank Template
-App templates help you jump start your native cross-platform apps with built-in UI elements and best practices. Save time writing boilerplate code over and over again when you create new apps.
+##Getting started
 
-## Quick Start
-Execute the following command to create an app from this template:
+Chat_native is a mobile chat application connected to it's website version via REST API. It's beeing developed for private-use only, so probably will has no use for you, but after all you wil maybe find some kind of inspiration here.  
 
-```
-tns create my-blank-ng --template tns-template-blank-ng
-```
+###Built with
 
-> Note: This command will create a new NativeScript app that uses the latest version of this template published to [npm] (https://www.npmjs.com/package/tns-template-blank-ng).
+[Nativescript](https://www.nativescript.org)
+[Angular 6](https://angular.io)
 
-If you want to create a new app that uses the source of the template from the `master` branch, you can execute the following:
+###Features and developing progress
 
-```
-tns create my-blank-ng --template https://github.com/NativeScript/template-blank-ng
-```
+####Implemented features
+* Logining
+* Sending messeges
+* Getting and displaying messages
+* Making, uploading to [external hosting server](https://imgur.com), and sending it's url as message
 
-**NB:** Please, have in mind that the master branch may refer to dependencies that are not on NPM yet!
+####Future featers
+* Uplading images from gallery
+* Infinite scrolling
+* Displaying bb-codes
+* Removing messages
 
-## Walkthrough
+###Authors
+* Michał Kuchmacz
+* Tomasz Gołka
+* Artur Wodarz
 
-### Architecture
-The application component:
-- `app.component.ts` - sets up a page router outlet that lets you navigate between pages.
 
-There is a single blank component that sets up an empty page layout:
-- `/home`
-
-**Home** page has the following components:
-- `ActionBar` - It holds the title of the page.
-- `GridLayout` - The main page layout that should contains all the page content.
-
-## Get Help
-The NativeScript framework has a vibrant community that can help when you run into problems.
-
-Try [joining the NativeScript community Slack](http://developer.telerik.com/wp-login.php?action=slack-invitation). The Slack channel is a great place to get help troubleshooting problems, as well as connect with other NativeScript developers.
-
-If you have found an issue with this template, please report the problem in the [NativeScript repository](https://github.com/NativeScript/NativeScript/issues).
-
-## Contributing
-
-We love PRs, and accept them gladly. Feel free to propose changes and new ideas. We will review and discuss, so that they can be accepted and better integrated.
