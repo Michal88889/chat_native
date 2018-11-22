@@ -10,7 +10,7 @@ Chat_native is a mobile chat application connected to it's website version via R
 ### Features and developing progress
 
 #### Implemented features
-* Logining
+* Login and password authorization
 * Sending messeges
 * Getting and displaying messages
 * Making, uploading to [external hosting server](https://imgur.com), and sending it's url as message
